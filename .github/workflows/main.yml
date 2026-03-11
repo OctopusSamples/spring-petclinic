@@ -54,9 +54,20 @@ jobs:
           cp "$GITHUB_WORKSPACE/target/petclinic.web.$PACKAGE_VERSION.war" "$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war"
           
       # Package flyway
-      - name: Package Flyway
-        run: |
-          octo pack --id="petclinic.db" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/flyway" --outFolder="$GITHUB_WORKSPACE/artifacts"
+#      - name: Package Flyway
+#        run: |
+#          octo pack --id="petclinic.db" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/flyway" --outFolder="$GITHUB_WORKSPACE/artifacts"
+
+      - name: Create a Zip package 🐙
+        id: create_a_zip_package
+        uses: OctopusDeploy/create-zip-package-action@v4
+        with:
+          package_id: 'petclinic.db'
+          version: "${{ env.PACKAGE_VERSION }}"
+          output_folder: 'artifacts'
+          base_path: flyway
+          files: |
+            **/*.*
           
       # Push packages to octopus deploy
 #      - name: Push packages to Octopus
