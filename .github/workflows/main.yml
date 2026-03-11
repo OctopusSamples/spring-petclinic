@@ -59,7 +59,18 @@ jobs:
           octo pack --id="petclinic.db" --format="Zip" --version="$PACKAGE_VERSION" --basePath="$GITHUB_WORKSPACE/flyway" --outFolder="$GITHUB_WORKSPACE/artifacts"
           
       # Push packages to octopus deploy
-      - name: Push packages to Octopus
-        run: |
-          octo push --package="$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war" --server="${{ secrets.OCTOPUS_SERVER_URL }}" --apiKey="${{ secrets.OCTOPUS_API_KEY }}" --space="${{ secrets.OCTOPUS_SERVER_SPACE }}"
-          octo push --package="$GITHUB_WORKSPACE/artifacts/petclinic.db.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER_URL }}" --apiKey="${{ secrets.OCTOPUS_API_KEY }}" --space="${{ secrets.OCTOPUS_SERVER_SPACE }}"      
+#      - name: Push packages to Octopus
+#        run: |
+#          octo push --package="$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war" --server="${{ secrets.OCTOPUS_SERVER_URL }}" --apiKey="${{ secrets.OCTOPUS_API_KEY }}" --space="${{ secrets.OCTOPUS_SERVER_SPACE }}"
+#          octo push --package="$GITHUB_WORKSPACE/artifacts/petclinic.db.$PACKAGE_VERSION.zip" --server="${{ secrets.OCTOPUS_SERVER_URL }}" --apiKey="${{ secrets.OCTOPUS_API_KEY }}" --space="${{ secrets.OCTOPUS_SERVER_SPACE }}" 
+
+      - name: Push a package to Octopus Deploy 🐙
+        id: push_a_package_to_octopus_deploy
+        uses: OctopusDeploy/push-package-action@v4
+        env:
+          OCTOPUS_URL: ${{ secrets.OCTOPUS_SERVER_URL }}
+          OCTOPUS_API_KEY: ${{ secrets.OCTOPUS_API_KEY }}
+          OCTOPUS_SPACE: ${{ secrets.OCTOPUS_SERVER_SPACE }}
+        with:
+          packages: |
+            "$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war"
