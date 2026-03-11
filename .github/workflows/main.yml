@@ -92,5 +92,5 @@ jobs:
           OCTOPUS_SPACE: ${{ secrets.OCTOPUS_SERVER_SPACE }}
         with:
           packages: |
-            "${{ github.workspace }}/artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war"
-            "${{ github.workspace }}/artifacts/petclinic.db.${{ env.PACKAGE_VERSION }}.zip"
+            ${{ github.workspace }}/artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war
+            ${{ github.workspace }}/artifacts/petclinic.db.${{ env.PACKAGE_VERSION }}.zip
