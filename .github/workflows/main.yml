@@ -64,8 +64,8 @@ jobs:
         with:
           package_id: 'petclinic.db'
           version: "${{ env.PACKAGE_VERSION }}"
-          output_folder: 'artifacts'
-          base_path: flyway
+          output_folder: '${{ github.workspace }}/artifacts'
+          base_path: "${{ github.workspace }}/flyway"
           files: |
             **/*.*
           
@@ -84,4 +84,5 @@ jobs:
           OCTOPUS_SPACE: ${{ secrets.OCTOPUS_SERVER_SPACE }}
         with:
           packages: |
-            "artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war"
+            "${{ github.workspace }}/artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war"
+            "${{ github.workspace }}/artifacts/petclinic.db.${{ env.PACKAGE_VERSION }}.zip"
