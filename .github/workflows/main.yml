@@ -71,6 +71,11 @@ jobs:
           base_path: "${{ github.workspace }}/flyway"
           files: |
             **/*.*
+
+      - name: List files
+        run: |
+          ls ${{ github.workspace }}
+          ls ${{ github.workspace }}/artifacts
           
       # Push packages to octopus deploy
 #      - name: Push packages to Octopus
