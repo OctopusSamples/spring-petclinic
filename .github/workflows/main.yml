@@ -45,13 +45,16 @@ jobs:
 
       # Create artifacts folder
       - name: Create artifacts folder
-        run: mkdir "$GITHUB_WORKSPACE/artifacts"
+        #run: mkdir "$GITHUB_WORKSPACE/artifacts"
+        run: mkdir "${{ github.workspace }}/artifacts"
 
       # Build PetClinic using maven
       - name: Build PetClinic
         run: |
-          mvn clean package -Pwar versions:set -DnewVersion=$PACKAGE_VERSION -Drevision=$PACKAGE_VERSION
-          cp "$GITHUB_WORKSPACE/target/petclinic.web.$PACKAGE_VERSION.war" "$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war"
+          #mvn clean package -Pwar versions:set -DnewVersion=$PACKAGE_VERSION -Drevision=$PACKAGE_VERSION
+          mvn clean package -Pwar versions:set -DnewVersion=${{ env.PACKAGE_VERSION }} -Drevision=${{ env.PACKAGE_VERSION }}
+          #cp "$GITHUB_WORKSPACE/target/petclinic.web.$PACKAGE_VERSION.war" "$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war"
+          cp "${{ github.workspace }}/target/petclinic.web.${{ env.PACKAGE_VERSION }}.war" "${{ github.workspace }}/artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war"
           
       # Package flyway
 #      - name: Package Flyway
