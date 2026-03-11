@@ -38,10 +38,10 @@ jobs:
           distribution: 'adopt'
           
       # Install Octopus action
-      - name: Install Octopus CLI
-        uses: OctopusDeploy/install-octopus-cli-action@v1.1.1
-        with:
-          version: latest
+#      - name: Install Octopus CLI
+#        uses: OctopusDeploy/install-octopus-cli-action@v1.1.1
+#        with:
+#          version: latest
 
       # Create artifacts folder
       - name: Create artifacts folder
@@ -73,4 +73,4 @@ jobs:
           OCTOPUS_SPACE: ${{ secrets.OCTOPUS_SERVER_SPACE }}
         with:
           packages: |
-            "$GITHUB_WORKSPACE/artifacts/petclinic.web.$PACKAGE_VERSION.war"
+            "artifacts/petclinic.web.${{ env.PACKAGE_VERSION }}.war"
